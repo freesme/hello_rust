@@ -1,4 +1,4 @@
 world_hello/target
-world_hello/main.exe
-world_hello/main.pdb
 world_hello/Cargo.lock
+world_hello/src/main.pdb
+world_hello/src/main.exe
