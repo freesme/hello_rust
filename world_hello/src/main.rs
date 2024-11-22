@@ -58,4 +58,65 @@ fn start() {
 fn main() {
     greet_world();
     start();
+    let circle = Circle::new(0.0, 0.0, 1.0);
+    let x = circle.area();
+    println!("area: {}", x);
+
+    let post = Post{title: "Rust语言简介".to_string(),author: "Sunface".to_string(), content: "Rust棒极了!".to_string()};
+    let weibo = Weibo{username: "sunface".to_string(),content: "好像微博没Tweet好用".to_string()};
+
+    println!("{}",post.summarize());
+    println!("{}",weibo.summarize());
+}
+
+
+struct Circle {
+    x: f64,
+    y: f64,
+    radius: f64,
+}
+
+impl Circle {
+    fn new(x: f64, y: f64, radius: f64) -> Circle {
+        Circle { x, y, radius }
+    }
+
+    fn area(&self) -> f64 {
+        std::f64::consts::PI * (self.radius * self.radius)
+    }
+}
+
+mod trait_demo;
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+
+pub struct Post {
+    pub title: String,
+    pub author: String,
+    pub content: String,
+}
+
+
+// 为Post实现Summary特征
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        format!("{} by {} : {}", self.title, self.author, self.content)
+    }
+}
+
+
+pub struct Weibo {
+    pub username: String,
+    pub content: String
+}
+
+impl Summary for Weibo {
+    fn summarize(&self) -> String {
+        format!("{}发表了微博{}", self.username, self.content)
+    }
+}
+
+pub fn notify(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
 }
